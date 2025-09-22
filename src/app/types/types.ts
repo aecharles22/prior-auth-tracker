@@ -1,10 +1,8 @@
-type Status = "Approved" | "Denied" | "Pending";
-
 export interface PriorAuth {
 	id: number;
 	firstName: string;
 	lastName: string;
-	status: Status;
+	status: 'pending' | 'submitted' | 'approved' | 'denied' | 'expired';
 	cptCode: number;
 	diagnosisCode: string;
 	notes?: string;
