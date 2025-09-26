@@ -1,11 +1,13 @@
-import { mockAuthorizations } from "./data/mockData";
 import Dashboard from "./components/Dashboard";
 
-export default function Home() {
+export default async function Home() {
+	const response = await fetch("http://localhost:3000/api/prior-auths");
+	const data = await response.json();
+
 	return (
 		<div>
 			<h1>Dashboard view</h1>
-			<Dashboard authorizations={mockAuthorizations} />
+			<Dashboard authorizations={data} />
 		</div>
 	);
 }
