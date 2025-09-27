@@ -46,6 +46,7 @@ export default function AuthForm(props: {
 		try {
 			const response = await fetch("/api/prior-auths", {
 				method: "POST",
+				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(newAuth),
 			});
 			setAuthList(newAuth);
