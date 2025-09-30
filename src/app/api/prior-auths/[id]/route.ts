@@ -1,13 +1,16 @@
-import { mockAuthorizations } from "@/app/data/mockData";
-import { NextRequest, NextResponse } from "next/server";
-import { mock } from "node:test";
+import { sharedData } from "@/app/lib/shared-data";
+import { NextRequest } from "next/server"
  
-const auths = mockAuthorizations
+const auths = sharedData;
+
 export async function PUT(request: NextRequest, {params}: {params: {id: string}}) {
-    const { id } = await params; 
-    const updatedAuth = await request.json(); 
+    const { id } = params; 
+    const updatedAuth = await request.json();
     const authIndex = auths.findIndex((auth) => auth.id === Number(id));
+    console.log("PUT - Before update:", auths[authIndex]?.firstName);
    auths[authIndex] = {...updatedAuth, id: Number(id)};
+   console.log("PUT - After update:", auths[authIndex]?.firstName);
+      console.log("PUT - Array length:", auths.length);
 
    return Response.json(auths[authIndex])
     
