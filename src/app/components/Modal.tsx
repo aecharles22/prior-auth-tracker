@@ -3,11 +3,10 @@ import { PriorAuth } from "../types/types";
 
 export default function Modal(props: {
 	auth: PriorAuth;
-	open: boolean;
 	setOpen: Function;
 	updatedAuth: Function;
 }) {
-	const { auth, open, setOpen, updatedAuth } = props;
+	const { auth, setOpen, updatedAuth } = props;
 	const handleEdit = async (formData: FormData) => {
 		const id = auth.id;
 		const firstName = formData.get("firstName") as string;

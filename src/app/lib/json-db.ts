@@ -1,18 +1,19 @@
 import { PriorAuth } from "../types/types";
-const fs = require("fs");
+import fs from "fs/promises";
 
-export function readDB(pathName: string) {
+export async function readDB(pathName: string) {
     try {
-        const data = fs.readFileSync(pathName, "utf8");
+        const data = await fs.readFile(pathName, "utf8");
         return JSON.parse(data);
     } catch(error) {
         console.error("Failed to read data: ", error);
+        return [];
     }
 }
 
-export function writeDB(pathName: string, auth: object) {
+export async function writeDB(pathName: string, auth: object):Promise <void> {
     try {
-        fs.writeFileSync(pathName, JSON.stringify(auth))
+        await fs.writeFile(pathName, JSON.stringify(auth))
     } catch(error) {
         console.error("Failed to write to DB: ", error);
     }

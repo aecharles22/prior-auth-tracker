@@ -39,6 +39,19 @@ export default function Dashboard({
 		console.log(data);
 	};
 
+	const deleteAuth = async (authId: number) => {
+		const request = await fetch(`/api/prior-auths/${authId}`, {
+			method: "DELETE",
+			headers: { content: "application/json" },
+			body: JSON.stringify(authId),
+		});
+		if (request.ok) {
+			refreshData();
+		} else {
+			console.error("Failed to update");
+		}
+	};
+
 	return (
 		<>
 			<button onClick={() => setNewAuthButton(!newAuthButton)}>
@@ -46,7 +59,6 @@ export default function Dashboard({
 			</button>
 			{modalOpen ? (
 				<Modal
-					open={modalOpen}
 					auth={selectedAuth}
 					setOpen={setModalOpen}
 					updatedAuth={refreshData}
@@ -57,7 +69,8 @@ export default function Dashboard({
 			{newAuthButton === false ? (
 				<table className="border-2">
 					<thead>
-						<tr className="grid grid-cols-5">
+						<tr className="grid grid-cols-6">
+							<th></th>
 							<th>Patient Name</th>
 							<th>Insurance</th>
 							<th>Procedure</th>
@@ -78,16 +91,18 @@ export default function Dashboard({
 							}) => (
 								<tr
 									key={id}
-									className="bg-grey border-2 grid grid-cols-5 justify-items-center"
-									onClick={() => handleModalOpen(id)}
+									className="bg-grey border-2 grid grid-cols-6 justify-items-center"
 								>
 									<td>
+										<button onClick={() => deleteAuth(id)}>DELETE</button>
+									</td>
+									<td onClick={() => handleModalOpen(id)}>
 										{lastName}, {firstName}
 									</td>
-									<td>{insurance}</td>
-									<td>{procedure.name}</td>
-									<td>{status}</td>
-									<td>{notes}</td>
+									<td onClick={() => handleModalOpen(id)}>{insurance}</td>
+									<td onClick={() => handleModalOpen(id)}>{procedure.name}</td>
+									<td onClick={() => handleModalOpen(id)}>{status}</td>
+									<td onClick={() => handleModalOpen(id)}>{notes}</td>
 								</tr>
 							)
 						)}

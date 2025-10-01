@@ -1,19 +1,19 @@
 import type { NextRequest } from "next/server";
 import path from "path";
+import { readDB, writeDB } from "@/app/lib/json-db";
 
-const goodPath = path.join(process.cwd(), 'src', 'app', 'data', 'prior-auths.json');
-const db = require("../../lib/json-db")
+const dbPath= path.join(process.cwd(), 'src', 'app', 'data', 'prior-auths.json');
 
 export async function GET() {
-    const data = db.readDB(goodPath)
+    const data = await readDB(dbPath);
     return Response.json(data)
 }
 
 export async function POST(request: NextRequest) {
     const newAuth = await request.json()
-    const existingDb = db.readDB(goodPath)
+    const existingDb = await readDB(dbPath)
     const newAuthWithId = {...newAuth, id: Date.now()}
     existingDb.push(newAuthWithId)
-    db.writeDB(goodPath, existingDb);
+    writeDB(dbPath, existingDb);
     return Response.json(newAuthWithId)
 }
