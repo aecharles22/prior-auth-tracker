@@ -36,7 +36,7 @@ export async function DELETE(request: NextRequest, {params}: {params: {id: strin
       currentAuthList.splice(indexToRemove, 1);
       writeDB(dbPath, currentAuthList);
 
-      return Response.json(currentAuthList, {status:204, statusText: "Authorization deleted."});
+      return new Response(null, {status:204});
    } catch (error) {
       return Response.json({error: "Bad Request"}, {status: 400})
    }

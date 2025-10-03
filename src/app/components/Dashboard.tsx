@@ -36,14 +36,11 @@ export default function Dashboard({
 		const response = await fetch("/api/prior-auths/");
 		const data = await response.json();
 		setAuthList(data);
-		console.log(data);
 	};
 
 	const deleteAuth = async (authId: number) => {
 		const request = await fetch(`/api/prior-auths/${authId}`, {
 			method: "DELETE",
-			headers: { content: "application/json" },
-			body: JSON.stringify(authId),
 		});
 		if (request.ok) {
 			refreshData();
