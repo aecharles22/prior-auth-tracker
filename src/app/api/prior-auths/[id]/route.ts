@@ -20,7 +20,7 @@ export async function PUT(request: NextRequest,  {params}: {params: {id: string}
 
       return Response.json(updatedAuth, {status: 200, statusText: "Authorization was updated succesfully!"});
    } catch (error) {
-      return Response.json({error: "Bad Request"}, {status: 400})
+      return Response.json({error: "Bad Request"}, {status: 404})
    }
 }
 

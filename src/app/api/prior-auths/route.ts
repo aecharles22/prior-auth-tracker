@@ -16,25 +16,19 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
     try {
-        const newAuth = await request.json()
-        const existingDb = await readDB(dbPath)
+        const newAuth = await request.json();
+        const existingDb = await readDB(dbPath);
+        const requiredFields = ['firstName', 'lastName', 'dob', 'insurance', 'procedure'];
+        const missingFields = requiredFields.filter(field => !newAuth[field]);
+
+        if (missingFields.length > 0) {
+            return Response.json(
+                {error: `Missing required fields: ${missingFields.join(', ')}`}, 
+                {status: 400}
+            );
+        }
         
-        if (!newAuth.firstName) {
-            return Response.json({error: "Missing first name"}, {status: 400})
-        }
-         if (!newAuth.lastName) {
-            return Response.json({error: "Missing last name"}, {status: 400})
-        }
-         if (!newAuth.dob) {
-            return Response.json({error: "Missing date of birth"}, {status: 400})
-        }
-         if (!newAuth.insurance) {
-            return Response.json({error: "Missing insurance"}, {status: 400})
-        }
-         if (!newAuth.procedure) {
-            return Response.json({error: "Missing procedure name and or code"}, {status: 400})
-        }
-        const newAuthWithId = {...newAuth, id: Date.now()}
+        const newAuthWithId = {...newAuth, id: crypto.randomUUID()}
         existingDb.push(newAuthWithId)
         writeDB(dbPath, existingDb);
         return Response.json(newAuthWithId, {status:201, statusText: "Successfully created a new prior authorization"})

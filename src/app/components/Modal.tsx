@@ -17,7 +17,7 @@ export default function Modal(props: {
 		const diagnosisCode = formData.get("diagnosisCode") as string;
 		const note = (formData.get("note") as string) || "";
 		const newAuth: PriorAuth = {
-			id: Number(id),
+			id: id,
 			firstName: firstName,
 			lastName: lastName,
 			insurance: insurance,
