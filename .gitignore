@@ -41,4 +41,4 @@ yarn-error.log*
 next-env.d.ts
 
 #db
-.json
+src/app/data/prior-auths.json
