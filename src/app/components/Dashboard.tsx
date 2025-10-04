@@ -3,6 +3,9 @@ import { PriorAuth } from "../types/types";
 import { useState } from "react";
 import AuthForm from "./AuthForm";
 import Modal from "./Modal";
+import Filters from "./Filter";
+import { Button } from "@/components/ui/button";
+import Status from "./StatusBadge";
 
 export default function Dashboard({
 	authorizations,
@@ -11,20 +14,11 @@ export default function Dashboard({
 }) {
 	const [newAuthButton, setNewAuthButton] = useState<boolean>(false);
 	const [authList, setAuthList] = useState(authorizations);
+	const [filteredList, setFilteredList] = useState(authList);
 	const [modalOpen, setModalOpen] = useState<boolean>(false);
 	const [selectedAuth, setSelectedAuth] = useState<PriorAuth>(authList[0]);
 
-	// const addAuthorization = (newAuth: PriorAuth) => {
-	// 	setAuthList([...authList, newAuth]);
-	// };
-
-	// const updateAuth = (updatedAuth: PriorAuth) => {
-	// 	setAuthList(
-	// 		authList.map((auth) => (auth.id == updatedAuth.id ? updatedAuth : auth))
-	// 	);
-	// };
-
-	const handleModalOpen = (key: number) => {
+	const handleModalOpen = (key: string) => {
 		let auth = authList.find((auth) => auth.id === key);
 		if (auth) {
 			setSelectedAuth(auth);
@@ -35,10 +29,10 @@ export default function Dashboard({
 	const refreshData = async () => {
 		const response = await fetch("/api/prior-auths/");
 		const data = await response.json();
-		setAuthList(data);
+		setFilteredList(data);
 	};
 
-	const deleteAuth = async (authId: number) => {
+	const deleteAuth = async (authId: string) => {
 		const request = await fetch(`/api/prior-auths/${authId}`, {
 			method: "DELETE",
 		});
@@ -49,11 +43,23 @@ export default function Dashboard({
 		}
 	};
 
+	const authFilter = (selectedFilter: string) => {
+		if (selectedFilter === "clear") {
+			setFilteredList(authList);
+			return;
+		}
+
+		const cleanList = authList.filter((auth) => auth.status === selectedFilter);
+		setFilteredList(cleanList);
+	};
+
 	return (
 		<>
-			<button onClick={() => setNewAuthButton(!newAuthButton)}>
+			<Button onClick={() => setNewAuthButton(!newAuthButton)}>
 				Create New Prior Authorization
-			</button>
+			</Button>
+			<Filters filterFunction={authFilter} />
+
 			{modalOpen ? (
 				<Modal
 					auth={selectedAuth}
@@ -76,7 +82,7 @@ export default function Dashboard({
 						</tr>
 					</thead>
 					<tbody>
-						{authList.map(
+						{filteredList.map(
 							({
 								id,
 								firstName,
@@ -98,7 +104,10 @@ export default function Dashboard({
 									</td>
 									<td onClick={() => handleModalOpen(id)}>{insurance}</td>
 									<td onClick={() => handleModalOpen(id)}>{procedure.name}</td>
-									<td onClick={() => handleModalOpen(id)}>{status}</td>
+									<td onClick={() => handleModalOpen(id)}>
+										<Status status={status} />
+									</td>
+
 									<td onClick={() => handleModalOpen(id)}>{notes}</td>
 								</tr>
 							)

@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         writeDB(dbPath, existingDb);
         return Response.json(newAuthWithId, {status:201, statusText: "Successfully created a new prior authorization"})
     } catch (error) {
-        return Response.json({error: "Bad Request"}, {status: 400})
+        return Response.json({error: "Bad Request"}, {status: 500})
     }
    
 }

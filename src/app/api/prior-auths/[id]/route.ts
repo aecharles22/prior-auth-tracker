@@ -11,7 +11,9 @@ export async function PUT(request: NextRequest,  {params}: {params: {id: string}
       const { id } = await params;
       const currentAuthList = await readDB(dbPath);
       const updatedAuth = await request.json()
-      const indexToUpdate = currentAuthList.findIndex((auth: PriorAuth) => auth.id === Number(id))
+      const indexToUpdate = currentAuthList.findIndex((auth: PriorAuth) => {
+            return auth.id === id
+         })
       if (indexToUpdate === -1) {
          return Response.json({error: "Prior auth not found"}, {status: 404})
       }
@@ -29,7 +31,7 @@ export async function DELETE(request: NextRequest, {params}: {params: {id: strin
    try{
       const { id } = await params;
       const currentAuthList = await readDB(dbPath);
-      const indexToRemove = currentAuthList.findIndex((auth: PriorAuth) => auth.id === Number(id))
+      const indexToRemove = currentAuthList.findIndex((auth: PriorAuth) => auth.id === id)
       if (indexToRemove === -1) {
          return Response.json({error: "Prior auth not found"}, {status: 404})
       }

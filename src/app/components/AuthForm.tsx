@@ -19,8 +19,7 @@ export default function AuthForm(props: {
 		const cptCode = formData.get("cptCode");
 		const diagnosisCode = formData.get("diagnosisCode") as string;
 
-		const newAuth: PriorAuth = {
-			id: Date.now(),
+		const newAuth = {
 			firstName: firstName,
 			lastName: lastName,
 			dob: dob,
