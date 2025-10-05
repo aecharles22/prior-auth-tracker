@@ -6,7 +6,6 @@ export default async function Home() {
 
 	return (
 		<div>
-			<h1>Dashboard view</h1>
 			<Dashboard authorizations={data} />
 		</div>
 	);

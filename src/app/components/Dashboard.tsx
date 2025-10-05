@@ -27,7 +27,7 @@ export default function Dashboard({
 	const [filteredList, setFilteredList] = useState(authList);
 	const [modalOpen, setModalOpen] = useState<boolean>(false);
 	const [selectedAuth, setSelectedAuth] = useState<PriorAuth>(authList[0]);
-	const [selectedStatus, setSelectedStatus] = useState<string>();
+	const [selectedStatus, setSelectedStatus] = useState<string>("");
 
 	const handleModalOpen = (key: string) => {
 		let auth = authList.find((auth) => auth.id === key);
