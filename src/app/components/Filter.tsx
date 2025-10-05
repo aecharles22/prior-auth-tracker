@@ -22,7 +22,7 @@ export default function Filter(props: {
 
 	const handleOnClick = (status: string) => {
 		setCurrentFilterValue(status);
-		filterFunction(status);
+		filterFunction(status, "");
 	};
 
 	return (

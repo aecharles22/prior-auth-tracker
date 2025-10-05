@@ -53,19 +53,30 @@ export default function Dashboard({
 		}
 	};
 
-	const authFilter = (selectedFilter: string) => {
+	const authFilter = (selectedFilter: string, search: string) => {
 		if (selectedFilter === "clear") {
 			setFilteredList(authList);
 			return;
 		}
 
-		const cleanList = authList.filter((auth) => auth.status === selectedFilter);
+		let cleanList = authList;
+		if (selectedFilter !== "") {
+			cleanList = authList.filter((auth) => auth.status === selectedFilter);
+		}
+
+		if (search !== "") {
+			cleanList = authList.filter((auth) =>
+				`${auth.firstName} ${auth.lastName}`
+					.toLowerCase()
+					.includes(search.toLowerCase())
+			);
+		}
 		setFilteredList(cleanList);
 	};
 
 	return (
 		<>
-			<Searchbar />
+			<Searchbar filter={authFilter} />
 			<Button onClick={() => setNewAuthButton(!newAuthButton)}>
 				Create New Prior Authorization
 			</Button>

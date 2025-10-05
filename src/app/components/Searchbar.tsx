@@ -2,11 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
-export default function Searchbar() {
+export default function Searchbar(props: { filter: Function }) {
+	const { filter } = props;
 	const [name, setName] = useState<string>("");
 
 	const handleOnSubmit = () => {
-		console.log(name);
+		filter("", name);
 	};
 
 	return (
