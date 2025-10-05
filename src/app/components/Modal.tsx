@@ -11,6 +11,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import { useState } from "react";
 
 export default function Modal(props: {
 	auth: PriorAuth;
@@ -18,13 +26,14 @@ export default function Modal(props: {
 	updatedAuth: Function;
 }) {
 	const { auth, setOpen, updatedAuth } = props;
+	const [status, setStatus] = useState(auth.status);
+
 	const handleEdit = async (formData: FormData) => {
 		const id = auth.id;
 		const firstName = formData.get("firstName") as string;
 		const lastName = formData.get("lastName") as string;
 		const insurance = formData.get("insurance") as string;
 		const dob = formData.get("dob") as string;
-		const status = auth.status;
 		const diagnosisCode = formData.get("diagnosisCode") as string;
 		const note = (formData.get("note") as string) || "";
 		const newAuth: PriorAuth = {
@@ -91,12 +100,7 @@ export default function Modal(props: {
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div className="space-y-2">
 							<Label htmlFor="dob">Date of Birth</Label>
-							<Input
-								id="dob"
-								name="dob"
-								defaultValue={auth.dob}
-								required
-							/>
+							<Input id="dob" name="dob" defaultValue={auth.dob} required />
 						</div>
 						<div className="space-y-2">
 							<Label htmlFor="insurance">Insurance</Label>
@@ -130,14 +134,31 @@ export default function Modal(props: {
 						</div>
 					</div>
 
-					<div className="space-y-2">
-						<Label htmlFor="note">Notes</Label>
-						<Input
-							id="note"
-							name="note"
-							placeholder="Add notes..."
-							defaultValue={auth.notes}
-						/>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+						<div className="space-y-2">
+							<Label htmlFor="status">Status</Label>
+							<Select value={status} onValueChange={setStatus}>
+								<SelectTrigger>
+									<SelectValue placeholder="Select status" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="pending">Pending</SelectItem>
+									<SelectItem value="submitted">Submitted</SelectItem>
+									<SelectItem value="approved">Approved</SelectItem>
+									<SelectItem value="denied">Denied</SelectItem>
+									<SelectItem value="expired">Expired</SelectItem>
+								</SelectContent>
+							</Select>
+						</div>
+						<div className="space-y-2">
+							<Label htmlFor="note">Notes</Label>
+							<Input
+								id="note"
+								name="note"
+								placeholder="Add notes..."
+								defaultValue={auth.notes}
+							/>
+						</div>
 					</div>
 
 					<div className="flex gap-2 justify-end">
