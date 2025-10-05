@@ -1,5 +1,16 @@
+"use client";
 import Form from "next/form";
 import { PriorAuth } from "../types/types";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 export default function Modal(props: {
 	auth: PriorAuth;
@@ -43,45 +54,104 @@ export default function Modal(props: {
 	};
 
 	return (
-		<Form action={handleEdit}>
-			<input
-				name="firstName"
-				placeholder="First Name"
-				defaultValue={auth.firstName}
-				required
-			/>
-			<input
-				name="lastName"
-				placeholder="Last Name"
-				defaultValue={auth.lastName}
-				required
-			/>
-			<input
-				name="dob"
-				placeholder="Date of birth (MM-DD-YYYY)"
-				defaultValue={auth.dob}
-				required
-			/>
-			<input
-				name="insurance"
-				placeholder="Insurance"
-				defaultValue={auth.insurance}
-				required
-			/>
-			<input
-				name="cptCode"
-				placeholder="CPT Code"
-				defaultValue={auth.procedure.cptCode}
-				required
-			/>
-			<input
-				name="diagnosisCode"
-				placeholder="Diagnosis code"
-				defaultValue={auth.diagnosisCode}
-				required
-			/>
-			<input name="note" placeholder="Notes..." defaultValue={auth.notes} />
-			<button>Submit</button>
-		</Form>
+		<Dialog open={true} onOpenChange={(open) => setOpen(open)}>
+			<DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+				<DialogHeader>
+					<DialogTitle>
+						Edit Authorization - {auth.lastName}, {auth.firstName}
+					</DialogTitle>
+					<DialogDescription>
+						Update patient and procedure information for this prior
+						authorization.
+					</DialogDescription>
+				</DialogHeader>
+
+				<Form action={handleEdit} className="space-y-4">
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+						<div className="space-y-2">
+							<Label htmlFor="firstName">First Name</Label>
+							<Input
+								id="firstName"
+								name="firstName"
+								defaultValue={auth.firstName}
+								required
+							/>
+						</div>
+						<div className="space-y-2">
+							<Label htmlFor="lastName">Last Name</Label>
+							<Input
+								id="lastName"
+								name="lastName"
+								defaultValue={auth.lastName}
+								required
+							/>
+						</div>
+					</div>
+
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+						<div className="space-y-2">
+							<Label htmlFor="dob">Date of Birth</Label>
+							<Input
+								id="dob"
+								name="dob"
+								defaultValue={auth.dob}
+								required
+							/>
+						</div>
+						<div className="space-y-2">
+							<Label htmlFor="insurance">Insurance</Label>
+							<Input
+								id="insurance"
+								name="insurance"
+								defaultValue={auth.insurance}
+								required
+							/>
+						</div>
+					</div>
+
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+						<div className="space-y-2">
+							<Label htmlFor="cptCode">CPT Code</Label>
+							<Input
+								id="cptCode"
+								name="cptCode"
+								defaultValue={auth.procedure.cptCode}
+								required
+							/>
+						</div>
+						<div className="space-y-2">
+							<Label htmlFor="diagnosisCode">Diagnosis Code</Label>
+							<Input
+								id="diagnosisCode"
+								name="diagnosisCode"
+								defaultValue={auth.diagnosisCode}
+								required
+							/>
+						</div>
+					</div>
+
+					<div className="space-y-2">
+						<Label htmlFor="note">Notes</Label>
+						<Input
+							id="note"
+							name="note"
+							placeholder="Add notes..."
+							defaultValue={auth.notes}
+						/>
+					</div>
+
+					<div className="flex gap-2 justify-end">
+						<Button
+							type="button"
+							variant="outline"
+							onClick={() => setOpen(false)}
+						>
+							Cancel
+						</Button>
+						<Button type="submit">Save Changes</Button>
+					</div>
+				</Form>
+			</DialogContent>
+		</Dialog>
 	);
 }

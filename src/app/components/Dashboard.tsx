@@ -5,6 +5,15 @@ import AuthForm from "./AuthForm";
 import Modal from "./Modal";
 import Filters from "./Filter";
 import { Button } from "@/components/ui/button";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@/components/ui/table";
+import { Trash2 } from "lucide-react";
 import Status from "./StatusBadge";
 import Searchbar from "./Searchbar";
 
@@ -75,70 +84,91 @@ export default function Dashboard({
 	};
 
 	return (
-		<>
-			<Searchbar filter={authFilter} />
-			<Button onClick={() => setNewAuthButton(!newAuthButton)}>
-				Create New Prior Authorization
-			</Button>
-			<Filters
-				filterFunction={authFilter}
-				setCurrentFilterValue={setSelectedStatus}
-			/>
+		<div className="container mx-auto py-6 space-y-4">
+			<div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+				<h1 className="text-3xl font-bold">Prior Authorizations</h1>
+				<Button onClick={() => setNewAuthButton(!newAuthButton)}>
+					Create New Prior Authorization
+				</Button>
+			</div>
 
-			{modalOpen ? (
+			<div className="flex gap-4 items-center">
+				<Searchbar filter={authFilter} />
+				<Filters
+					filterFunction={authFilter}
+					setCurrentFilterValue={setSelectedStatus}
+				/>
+			</div>
+
+			{modalOpen && (
 				<Modal
 					auth={selectedAuth}
 					setOpen={setModalOpen}
 					updatedAuth={refreshData}
 				/>
-			) : (
-				<div />
 			)}
-			{newAuthButton === false ? (
-				<table className="border-2">
-					<thead>
-						<tr className="grid grid-cols-6">
-							<th></th>
-							<th>Patient Name</th>
-							<th>Insurance</th>
-							<th>Procedure</th>
-							<th>Status</th>
-							<th>Notes</th>
-						</tr>
-					</thead>
-					<tbody>
-						{filteredList.map(
-							({
-								id,
-								firstName,
-								lastName,
-								status,
-								insurance,
-								procedure,
-								notes,
-							}) => (
-								<tr
-									key={id}
-									className="bg-grey border-2 grid grid-cols-6 justify-items-center"
-								>
-									<td>
-										<button onClick={() => deleteAuth(id)}>DELETE</button>
-									</td>
-									<td onClick={() => handleModalOpen(id)}>
-										{lastName}, {firstName}
-									</td>
-									<td onClick={() => handleModalOpen(id)}>{insurance}</td>
-									<td onClick={() => handleModalOpen(id)}>{procedure.name}</td>
-									<td onClick={() => handleModalOpen(id)}>
-										<Status status={status} />
-									</td>
 
-									<td onClick={() => handleModalOpen(id)}>{notes}</td>
-								</tr>
-							)
-						)}
-					</tbody>
-				</table>
+			{newAuthButton === false ? (
+				<div className="rounded-md border">
+					<Table>
+						<TableHeader>
+							<TableRow>
+								<TableHead className="w-[50px]"></TableHead>
+								<TableHead>Patient Name</TableHead>
+								<TableHead>Insurance</TableHead>
+								<TableHead>Procedure</TableHead>
+								<TableHead>Status</TableHead>
+								<TableHead>Notes</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							{filteredList.map(
+								({
+									id,
+									firstName,
+									lastName,
+									status,
+									insurance,
+									procedure,
+									notes,
+								}) => (
+									<TableRow
+										key={id}
+										className="cursor-pointer hover:bg-muted/50"
+									>
+										<TableCell>
+											<Button
+												variant="ghost"
+												size="icon"
+												onClick={(e) => {
+													e.stopPropagation();
+													deleteAuth(id);
+												}}
+											>
+												<Trash2 className="h-4 w-4 text-destructive" />
+											</Button>
+										</TableCell>
+										<TableCell onClick={() => handleModalOpen(id)}>
+											{lastName}, {firstName}
+										</TableCell>
+										<TableCell onClick={() => handleModalOpen(id)}>
+											{insurance}
+										</TableCell>
+										<TableCell onClick={() => handleModalOpen(id)}>
+											{procedure.name}
+										</TableCell>
+										<TableCell onClick={() => handleModalOpen(id)}>
+											<Status status={status} />
+										</TableCell>
+										<TableCell onClick={() => handleModalOpen(id)}>
+											{notes}
+										</TableCell>
+									</TableRow>
+								)
+							)}
+						</TableBody>
+					</Table>
+				</div>
 			) : (
 				<AuthForm
 					authForm={newAuthButton}
@@ -147,6 +177,6 @@ export default function Dashboard({
 					currentAuthList={authList}
 				/>
 			)}
-		</>
+		</div>
 	);
 }
