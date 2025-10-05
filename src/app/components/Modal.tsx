@@ -137,8 +137,20 @@ export default function Modal(props: {
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div className="space-y-2">
 							<Label htmlFor="status">Status</Label>
-							<Select value={status} onValueChange={setStatus}>
-								<SelectTrigger>
+							<Select
+								value={status}
+								onValueChange={(value) =>
+									setStatus(
+										value as
+											| "pending"
+											| "submitted"
+											| "approved"
+											| "denied"
+											| "expired"
+									)
+								}
+							>
+								<SelectTrigger id="status">
 									<SelectValue placeholder="Select status" />
 								</SelectTrigger>
 								<SelectContent>
