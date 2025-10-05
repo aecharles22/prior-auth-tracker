@@ -14,12 +14,14 @@ import {
 
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 
-export default function Filter(props: { filterFunction: Function }) {
-	const { filterFunction } = props;
-	const [selectedStatus, setSelectedStatus] = useState<string>();
+export default function Filter(props: {
+	filterFunction: Function;
+	setCurrentFilterValue: Function;
+}) {
+	const { filterFunction, setCurrentFilterValue } = props;
 
 	const handleOnClick = (status: string) => {
-		console.log(status);
+		setCurrentFilterValue(status);
 		filterFunction(status);
 	};
 

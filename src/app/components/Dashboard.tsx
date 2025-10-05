@@ -6,6 +6,7 @@ import Modal from "./Modal";
 import Filters from "./Filter";
 import { Button } from "@/components/ui/button";
 import Status from "./StatusBadge";
+import Searchbar from "./Searchbar";
 
 export default function Dashboard({
 	authorizations,
@@ -17,6 +18,7 @@ export default function Dashboard({
 	const [filteredList, setFilteredList] = useState(authList);
 	const [modalOpen, setModalOpen] = useState<boolean>(false);
 	const [selectedAuth, setSelectedAuth] = useState<PriorAuth>(authList[0]);
+	const [selectedStatus, setSelectedStatus] = useState<string>();
 
 	const handleModalOpen = (key: string) => {
 		let auth = authList.find((auth) => auth.id === key);
@@ -29,7 +31,15 @@ export default function Dashboard({
 	const refreshData = async () => {
 		const response = await fetch("/api/prior-auths/");
 		const data = await response.json();
-		setFilteredList(data);
+		setAuthList(data);
+		if (selectedStatus !== "") {
+			const cleanList = data.filter(
+				(auth: PriorAuth) => auth.status === selectedStatus
+			);
+			setFilteredList(cleanList);
+		} else {
+			setFilteredList(data);
+		}
 	};
 
 	const deleteAuth = async (authId: string) => {
@@ -55,10 +65,14 @@ export default function Dashboard({
 
 	return (
 		<>
+			<Searchbar />
 			<Button onClick={() => setNewAuthButton(!newAuthButton)}>
 				Create New Prior Authorization
 			</Button>
-			<Filters filterFunction={authFilter} />
+			<Filters
+				filterFunction={authFilter}
+				setCurrentFilterValue={setSelectedStatus}
+			/>
 
 			{modalOpen ? (
 				<Modal

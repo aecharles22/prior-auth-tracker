@@ -13,7 +13,7 @@ export default function Modal(props: {
 		const lastName = formData.get("lastName") as string;
 		const insurance = formData.get("insurance") as string;
 		const dob = formData.get("dob") as string;
-		const status = "pending";
+		const status = auth.status;
 		const diagnosisCode = formData.get("diagnosisCode") as string;
 		const note = (formData.get("note") as string) || "";
 		const newAuth: PriorAuth = {
