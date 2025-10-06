@@ -1,7 +1,4 @@
 "use client";
-
-import { useState } from "react";
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -12,11 +9,9 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-type Checked = DropdownMenuCheckboxItemProps["checked"];
-
 export default function Filter(props: {
-	filterFunction: Function;
-	setCurrentFilterValue: Function;
+	filterFunction: (selectedFilter: string, search: string) => void;
+	setCurrentFilterValue: (statusValue: string) => void;
 }) {
 	const { filterFunction, setCurrentFilterValue } = props;
 

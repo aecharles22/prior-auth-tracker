@@ -1,6 +1,5 @@
 
 import fs from "fs/promises";
-import { PriorAuth } from "../types/types";
 
 export async function readDB(pathName: string) {
     try {

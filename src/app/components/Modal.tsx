@@ -24,8 +24,8 @@ type Status = PriorAuth["status"];
 
 export default function Modal(props: {
 	auth: PriorAuth;
-	setOpen: Function;
-	updatedAuth: Function;
+	setOpen: (isOpen: boolean) => void;
+	updatedAuth: () => void;
 }) {
 	const { auth, setOpen, updatedAuth } = props;
 	const [status, setStatus] = useState<Status>(auth.status);

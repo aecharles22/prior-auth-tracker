@@ -30,7 +30,7 @@ export default function Dashboard({
 	const [selectedStatus, setSelectedStatus] = useState<string>("");
 
 	const handleModalOpen = (key: string) => {
-		let auth = authList.find((auth) => auth.id === key);
+		const auth = authList.find((auth) => auth.id === key);
 		if (auth) {
 			setSelectedAuth(auth);
 			setModalOpen(true);

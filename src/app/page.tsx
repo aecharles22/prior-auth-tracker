@@ -1,8 +1,10 @@
 import Dashboard from "./components/Dashboard";
+import { readDB } from "./lib/json-db";
+import path from "path";
 
 export default async function Home() {
-	const response = await fetch("http://localhost:3000/api/prior-auths");
-	const data = await response.json();
+	const dbPath = path.join(process.cwd(), "src", "app", "data", "prior-auths.json");
+	const data = await readDB(dbPath);
 
 	return (
 		<div>
