@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest } from "next/server"
 import path from "path";
 import { readDB, writeDB } from "@/app/lib/json-db";
 import { PriorAuth } from "@/app/types/types";

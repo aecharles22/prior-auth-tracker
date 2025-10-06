@@ -14,8 +14,8 @@ import {
 
 export default function AuthForm(props: {
 	authForm: boolean;
-	setAuthForm: Function;
-	setAuthList: Function;
+	setAuthForm: (authFormOpen: boolean) => void;
+	setAuthList: () => void;
 	currentAuthList: PriorAuth[];
 }) {
 	const { authForm, setAuthForm, setAuthList, currentAuthList } = props;
@@ -90,24 +90,14 @@ export default function AuthForm(props: {
 						</div>
 						<div className="space-y-2">
 							<Label htmlFor="lastName">Last Name</Label>
-							<Input
-								id="lastName"
-								name="lastName"
-								placeholder="Doe"
-								required
-							/>
+							<Input id="lastName" name="lastName" placeholder="Doe" required />
 						</div>
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div className="space-y-2">
 							<Label htmlFor="dob">Date of Birth</Label>
-							<Input
-								id="dob"
-								name="dob"
-								placeholder="MM-DD-YYYY"
-								required
-							/>
+							<Input id="dob" name="dob" placeholder="MM-DD-YYYY" required />
 						</div>
 						<div className="space-y-2">
 							<Label htmlFor="insurance">Insurance</Label>
@@ -123,12 +113,7 @@ export default function AuthForm(props: {
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div className="space-y-2">
 							<Label htmlFor="cptCode">CPT Code</Label>
-							<Input
-								id="cptCode"
-								name="cptCode"
-								placeholder="99213"
-								required
-							/>
+							<Input id="cptCode" name="cptCode" placeholder="99213" required />
 						</div>
 						<div className="space-y-2">
 							<Label htmlFor="diagnosisCode">Diagnosis Code</Label>
