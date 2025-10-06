@@ -5,7 +5,7 @@ import { PriorAuth } from "@/app/types/types";
 
 const dbPath = path.join(process.cwd(), "src", "app", "data","prior-auths.json")
 
-export async function PUT(request: NextRequest,  {params}: {params: {id: string}}) {
+export async function PUT(request: NextRequest,  {params}: {params: Promise<{id: string}>}) {
 
    try {
       const { id } = await params;
@@ -26,8 +26,8 @@ export async function PUT(request: NextRequest,  {params}: {params: {id: string}
    }
 }
 
-export async function DELETE(request: NextRequest, {params}: {params: {id: string}}) {
-   
+export async function DELETE(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
+
    try{
       const { id } = await params;
       const currentAuthList = await readDB(dbPath);
