@@ -13,7 +13,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { Trash2 } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle, Trash2 } from "lucide-react";
 import Status from "./StatusBadge";
 import Searchbar from "./Searchbar";
 
@@ -85,9 +86,20 @@ export default function Dashboard({
 
 	return (
 		<div className="container mx-auto py-6 space-y-4">
+			<Alert variant="destructive">
+				<AlertCircle className="h-4 w-4" />
+				<AlertTitle>Demo Mode - Read Only</AlertTitle>
+				<AlertDescription>
+					This is a portfolio project without authentication. Creating, editing,
+					and deleting prior authorizations has been disabled. Want to try it
+					out? Fork the repository and remove the disabled attributes to enable
+					full functionality.
+				</AlertDescription>
+			</Alert>
+
 			<div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
 				<h1 className="text-3xl font-bold">Prior Authorizations</h1>
-				<Button onClick={() => setNewAuthButton(!newAuthButton)}>
+				<Button onClick={() => setNewAuthButton(!newAuthButton)} disabled>
 					Create New Prior Authorization
 				</Button>
 			</div>
@@ -144,6 +156,7 @@ export default function Dashboard({
 													e.stopPropagation();
 													deleteAuth(id);
 												}}
+												disabled
 											>
 												<Trash2 className="h-4 w-4 text-destructive" />
 											</Button>
