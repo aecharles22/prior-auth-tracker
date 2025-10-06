@@ -32,22 +32,28 @@ export default function Modal(props: {
 
 	const handleEdit = async (formData: FormData) => {
 		const id = auth.id;
-		const firstName = formData.get("firstName")?.toString() ?? "";
-		const lastName = formData.get("lastName")?.toString() ?? "";
-		const insurance = formData.get("insurance")?.toString() ?? "";
-		const dob = formData.get("dob")?.toString() ?? "";
-		const diagnosisCode = formData.get("diagnosisCode")?.toString() ?? "";
-		const note = formData.get("note")?.toString() ?? "";
+		const firstName = formData.get("firstName");
+		const lastName = formData.get("lastName");
+		const insurance = formData.get("insurance");
+		const dob = formData.get("dob");
+		const diagnosisCode = formData.get("diagnosisCode");
+		const note = formData.get("note");
+
+		if (!firstName || !lastName || !insurance || !dob || !diagnosisCode) {
+			alert("All fields are required");
+			return;
+		}
+
 		const newAuth: PriorAuth = {
-			id: id,
-			firstName: firstName,
-			lastName: lastName,
-			insurance: insurance,
-			dob: dob,
-			status: status,
+			id,
+			firstName: firstName.toString(),
+			lastName: lastName.toString(),
+			insurance: insurance.toString(),
+			dob: dob.toString(),
+			status,
 			procedure: auth.procedure,
-			diagnosisCode: diagnosisCode,
-			notes: note,
+			diagnosisCode: diagnosisCode.toString(),
+			notes: note?.toString() ?? "",
 		};
 
 		const request = await fetch(`/api/prior-auths/${id}`, {
