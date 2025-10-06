@@ -20,22 +20,24 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 
+type Status = PriorAuth["status"];
+
 export default function Modal(props: {
 	auth: PriorAuth;
 	setOpen: Function;
 	updatedAuth: Function;
 }) {
 	const { auth, setOpen, updatedAuth } = props;
-	const [status, setStatus] = useState(auth.status);
+	const [status, setStatus] = useState<Status>(auth.status);
 
 	const handleEdit = async (formData: FormData) => {
 		const id = auth.id;
-		const firstName = formData.get("firstName") as string;
-		const lastName = formData.get("lastName") as string;
-		const insurance = formData.get("insurance") as string;
-		const dob = formData.get("dob") as string;
-		const diagnosisCode = formData.get("diagnosisCode") as string;
-		const note = (formData.get("note") as string) || "";
+		const firstName = formData.get("firstName")?.toString() ?? "";
+		const lastName = formData.get("lastName")?.toString() ?? "";
+		const insurance = formData.get("insurance")?.toString() ?? "";
+		const dob = formData.get("dob")?.toString() ?? "";
+		const diagnosisCode = formData.get("diagnosisCode")?.toString() ?? "";
+		const note = formData.get("note")?.toString() ?? "";
 		const newAuth: PriorAuth = {
 			id: id,
 			firstName: firstName,
@@ -139,16 +141,7 @@ export default function Modal(props: {
 							<Label htmlFor="status">Status</Label>
 							<Select
 								value={status}
-								onValueChange={(value) =>
-									setStatus(
-										value as
-											| "pending"
-											| "submitted"
-											| "approved"
-											| "denied"
-											| "expired"
-									)
-								}
+								onValueChange={(value) => setStatus(value as Status)}
 							>
 								<SelectTrigger id="status">
 									<SelectValue placeholder="Select status" />
