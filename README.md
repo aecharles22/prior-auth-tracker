@@ -45,3 +45,72 @@ This results in significant revenue loss and administrative burden. I built this
 ## About This Project
 
 This is a portfolio demonstration showcasing my ability to identify real-world healthcare workflow problems and build practical solutions. While this version uses mock data and is not production-ready for protected health information, it demonstrates the core functionality needed to solve authorization tracking challenges in medical practices.
+
+## Running Locally with Full Functionality
+
+The live demo has create/edit/delete functionality disabled since there's no authentication. To enable full functionality on your local machine:
+
+### Quick Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/aecharles22/prior-auth-tracker.git
+   cd prior-auth-tracker
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Enable functionality** - Remove the `disabled` attribute from these components:
+
+   **src/app/components/Dashboard.tsx (Line 101)**
+   ```typescript
+   // Change this:
+   <Button onClick={() => setNewAuthButton(!newAuthButton)} disabled>
+
+   // To this:
+   <Button onClick={() => setNewAuthButton(!newAuthButton)}>
+   ```
+
+   **src/app/components/Dashboard.tsx (Line 159)**
+   ```typescript
+   // Change this:
+   <Button variant="ghost" size="icon" onClick={(e) => {...}} disabled>
+
+   // To this:
+   <Button variant="ghost" size="icon" onClick={(e) => {...}}>
+   ```
+
+   **src/app/components/Modal.tsx (Line 183)**
+   ```typescript
+   // Change this:
+   <Button type="submit" disabled>Save Changes</Button>
+
+   // To this:
+   <Button type="submit">Save Changes</Button>
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open [http://localhost:3000](http://localhost:3000)** - All CRUD operations are now enabled!
+
+### Optional: Remove the Warning Banner
+
+If you want to remove the red warning banner at the top:
+
+**src/app/components/Dashboard.tsx (Lines 89-97)**
+```typescript
+// Delete or comment out this entire block:
+<Alert variant="destructive">
+  <AlertCircle className="h-4 w-4" />
+  <AlertTitle>Demo Mode - Read Only</AlertTitle>
+  <AlertDescription>
+    This is a portfolio project without authentication...
+  </AlertDescription>
+</Alert>
+```

@@ -178,9 +178,9 @@ export default function Modal(props: {
 							variant="outline"
 							onClick={() => setOpen(false)}
 						>
-							Cancel
+							Close
 						</Button>
-						<Button type="submit">Save Changes</Button>
+						<Button type="submit" disabled>Save Changes</Button>
 					</div>
 				</Form>
 			</DialogContent>
