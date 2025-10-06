@@ -1,5 +1,7 @@
 # Prior Authorization Tracker
 
+🔗 **[Live Demo](https://prior-auth-tracker-16gw9folm-alexs-projects-c9abafd4.vercel.app/)**
+
 A workflow management tool designed to improve visibility and patient outcomes in healthcare settings.
 
 **⚠️ Important: This is a demonstration project. This exact codebase is not HIPAA compliant and all data is spoofed.**
@@ -53,12 +55,14 @@ The live demo has create/edit/delete functionality disabled since there's no aut
 ### Quick Setup
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/aecharles22/prior-auth-tracker.git
    cd prior-auth-tracker
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
@@ -66,6 +70,7 @@ The live demo has create/edit/delete functionality disabled since there's no aut
 3. **Enable functionality** - Remove the `disabled` attribute from these components:
 
    **src/app/components/Dashboard.tsx (Line 101)**
+
    ```typescript
    // Change this:
    <Button onClick={() => setNewAuthButton(!newAuthButton)} disabled>
@@ -75,6 +80,7 @@ The live demo has create/edit/delete functionality disabled since there's no aut
    ```
 
    **src/app/components/Dashboard.tsx (Line 159)**
+
    ```typescript
    // Change this:
    <Button variant="ghost" size="icon" onClick={(e) => {...}} disabled>
@@ -84,6 +90,7 @@ The live demo has create/edit/delete functionality disabled since there's no aut
    ```
 
    **src/app/components/Modal.tsx (Line 183)**
+
    ```typescript
    // Change this:
    <Button type="submit" disabled>Save Changes</Button>
@@ -93,6 +100,7 @@ The live demo has create/edit/delete functionality disabled since there's no aut
    ```
 
 4. **Run the development server**
+
    ```bash
    npm run dev
    ```
@@ -104,13 +112,14 @@ The live demo has create/edit/delete functionality disabled since there's no aut
 If you want to remove the red warning banner at the top:
 
 **src/app/components/Dashboard.tsx (Lines 89-97)**
+
 ```typescript
 // Delete or comment out this entire block:
 <Alert variant="destructive">
-  <AlertCircle className="h-4 w-4" />
-  <AlertTitle>Demo Mode - Read Only</AlertTitle>
-  <AlertDescription>
-    This is a portfolio project without authentication...
-  </AlertDescription>
+	<AlertCircle className="h-4 w-4" />
+	<AlertTitle>Demo Mode - Read Only</AlertTitle>
+	<AlertDescription>
+		This is a portfolio project without authentication...
+	</AlertDescription>
 </Alert>
 ```
