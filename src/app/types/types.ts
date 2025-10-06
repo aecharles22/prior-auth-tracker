@@ -1,9 +1,11 @@
 export interface PriorAuth {
-	id: number;
+	id: string;
 	firstName: string;
 	lastName: string;
+	dob: string;
+	insurance: string;
 	status: 'pending' | 'submitted' | 'approved' | 'denied' | 'expired';
-	cptCode: number;
+	procedure: {cptCode: number, name:string}
 	diagnosisCode: string;
 	notes?: string;
 }

@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prior Authorization Tracker
 
-## Getting Started
+A workflow management tool designed to improve visibility and patient outcomes in healthcare settings.
 
-First, run the development server:
+**⚠️ Important: This is a demonstration project. This exact codebase is not HIPAA compliant and all data is spoofed.**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## The Problem
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+As an office manager at an ophthalmology practice, I witnessed firsthand how prior authorization (PA) processes can fall through the cracks. Administrative staff juggle multiple responsibilities: answering calls, checking patients in and out, handling billing questions. This makes it easy to lose track of submitted authorizations.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The typical workflow breakdown:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Staff submits a prior authorization request
+2. Gets pulled into other urgent tasks
+3. Insurance denial or request for more clinical information arrives but goes unnoticed or gets deprioritized
+4. Patient receives procedure without proper authorization
+5. Claim gets denied, leaving the practice financially responsible
 
-## Learn More
+This results in significant revenue loss and administrative burden. I built this proof-of-concept tool to address these workflow gaps.
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Current Functionality
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Create and update authorizations** – Maintain accurate records throughout the approval process
+- **Centralized dashboard** – View all authorizations regardless of status in one place
+- **Status tracking** – Monitor where each authorization stands in the approval pipeline
+- **Search capabilities** – Quickly find authorizations by patient name or status
+- **Authorization management** – Remove outdated or duplicate entries
 
-## Deploy on Vercel
+### Planned Enhancements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Automated status updates** – Direct integration with insurance provider portals
+- **Reminder system** – Email notifications for pending authorizations requiring follow-up
+- **Analytics dashboard** – Identify patterns in denials and optimize submission strategies
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Tech Stack
+
+- **Framework:** Next.js
+- **UI Library:** React
+- **Styling:** Tailwind CSS
+- **Components:** shadcn/ui
+- **Icons:** Lucide React
+
+## About This Project
+
+This is a portfolio demonstration showcasing my ability to identify real-world healthcare workflow problems and build practical solutions. While this version uses mock data and is not production-ready for protected health information, it demonstrates the core functionality needed to solve authorization tracking challenges in medical practices.
